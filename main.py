@@ -1,7 +1,9 @@
 
 import curses
 import menu_Option_3
+import menu_Option_5
 from menu_Option_3 import cycleThroughUsers
+from menu_Option_5 import print_Instructions
 
 def printMenu(screen, selectedOptionIndex):
     menuOptions = ["Main Menu", "1. Play", "2. Scoreboard", "3. User Selection",
@@ -45,7 +47,9 @@ def main(screen):
         elif key == curses.KEY_LEFT:
             break
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 5:
-            break
+            print_Instructions(screen)
+            screen.clear()
+
         printMenu(screen,selectedOptionIndex)
         screen.refresh()
 
