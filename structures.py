@@ -3,27 +3,32 @@ import os
 
 #Node for players Structure
 class playerNode:
-        def _init_(self, playerName):
+        def __init__(self, playerName):
             self.playerName = playerName
             self.next = None
-            self.previous = None
+            self.prev = None
 
 #Circular Double Linked List (uses the Node structure)
 class userSeletionList:
     def __init__(self):
         self.head = None
 
-    def __add__(self, newNode):
+#Add method
+    def add(self, user_name):
         if self.head is None:
-            self.head = newNode
+            newPlayerNode = playerNode(user_name)
+            newPlayerNode.prev = None
+            self.head = newPlayerNode
         else:
+            newPlayerNode = playerNode(user_name)
             head = self.head
             temp = self.head
-            while temp.next is not head:
+            while temp.next and temp.next is not head:
                 temp = temp.next
-            temp.next = newNode
-            newNode.next = head
-            newNode.previous = temp
+            temp.next = newPlayerNode
+            newPlayerNode.next = head
+            newPlayerNode.prev = temp
+            self.head.prev = newPlayerNode
 
 #Node for score Structure
 class pointNode:
@@ -36,7 +41,7 @@ class pointNode:
 
 #Stack linked list (Uses pointNode Structure)
 class scoreList:
-    def _push_(self, newNode): #Method to push a new node to stack
+    def push(self, newNode): #Method to push a new node to stack
         if self.head is None:
             self.head = newNode
         else:
@@ -47,7 +52,7 @@ class scoreList:
                 temp = temp.next
             temp.next = newNode
 
-    def __pop__(self): #Method to pop last entry
+    def pop(self): #Method to pop last entry
         temp = self.head
 
         while temp.next is not None:
@@ -67,7 +72,7 @@ class scoreBoardNode:
 
 #Queue Linked list (uses scoreBoardNode)
 class scoreBoardLinkedList:
-    def _enqueue_(self, newNode):
+    def enqueue(self, newNode):
         if self.head is None:
             self.head = newNode
         else:
@@ -78,7 +83,7 @@ class scoreBoardLinkedList:
                 temp = temp.next
             temp.next = newNode
 
-    def _dequeue_(self): #removes the first entry
+    def dequeue(self): #removes the first entry
         head = self.head
         temp = head.next
 
