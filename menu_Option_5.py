@@ -1,5 +1,6 @@
 
 import curses
+import csv
 
 def print_Instructions(screen):
     screen.clear()
@@ -20,3 +21,19 @@ def print_Instructions(screen):
             break
 
     print("Operation Successful")
+
+
+def load_user_array():
+    users = []
+    with open('Usuarios.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        line_count = 0
+        for row in csv_reader:
+            if line_count == 0:
+                line_count += 1
+            elif line_count is not 0:
+                users.append(row)
+                line_count +=  1
+    #Imprime el numero de rows analizadas
+    print(f'Processed {line_count} lines.')
+    return users

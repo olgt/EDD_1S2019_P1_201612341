@@ -1,9 +1,18 @@
 
 import curses
+import  menu_Option_1
 import menu_Option_3
 import menu_Option_5
+from menu_Option_1 import create_Snake
 from menu_Option_3 import cycleThroughUsers
+from menu_Option_3 import create_Filled_User_Structure
 from menu_Option_5 import print_Instructions
+from menu_Option_5 import load_user_array
+from menu_Option_4 import generatePlayerReport
+from structures import playerNode
+
+actualUser = playerNode("New Player")
+users = []
 
 def printMenu(screen, selectedOptionIndex):
     menuOptions = ["Main Menu", "1. Play", "2. Scoreboard", "3. User Selection",
@@ -25,10 +34,20 @@ def printMenu(screen, selectedOptionIndex):
         else:
             screen.addstr(y, x, menuOptions[index])
 
+def getNewName(screen):
+    curses.echo()
+    curses.curs_set(True)
+    screen.addstr(5, 5, "No Users Loaded. Please write the name of the player: ")
+    nameOfPlayer = screen.getstr()
+    actualUser = nameOfPlayer
+    curses.curs_set(False)
+    screen.clear()
+
 def main(screen):
     curses.curs_set(0) #Sets the blinking off
     selectedOptionIndex = 0 #This is the first option that the selection is at
-
+    isOptionFivePressed = False
+    height, width = screen.getmaxyx()
     printMenu(screen, selectedOptionIndex)
 
     while 1:
@@ -42,12 +61,29 @@ def main(screen):
         elif selectedOptionIndex < 0 or selectedOptionIndex >= 6:
             selectedOptionIndex = 0
             printMenu(screen, selectedOptionIndex)
+
+        elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 1:
+            if(isOptionFivePressed):
+                create_Snake(screen, height,width)
+                pass
+            elif(isOptionFivePressed is False):
+                getNewName(screen)
+                create_Snake(screen, height, width)
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 3:
-            cycleThroughUsers(screen)
+            if(isOptionFivePressed is False):
+                print("No Users have been added")
+            else:
+                actualUser = cycleThroughUsers(screen, users)
+                print("User Selected = " + str(actualUser.playerName))
         elif key == curses.KEY_LEFT:
             break
+        elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 4:
+            usersStructure = create_Filled_User_Structure(users)
+            generatePlayerReport(usersStructure)
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 5:
             print_Instructions(screen)
+            users = load_user_array()
+            isOptionFivePressed = True
             screen.clear()
 
         printMenu(screen,selectedOptionIndex)

@@ -2,9 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="daa4e7a6-e0a9-4545-a60a-06fcfd967d5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/menu_Option_5.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/UsersReport.dot" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/menu_Option_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/menu_Option_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/venv/menu_Option_4.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/~$ersReport.dot" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu_Option_3.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_Option_3.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu_Option_5.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_Option_5.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/structures.py" beforeDir="false" afterPath="$PROJECT_DIR$/structures.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +36,12 @@
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.tools" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Oscar\Dropbox\EDD_2019_1er_Semestre\EDD_Practica_1_2019" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">

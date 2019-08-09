@@ -1,5 +1,6 @@
 
 import os
+import curses
 
 #Node for players Structure
 class playerNode:
@@ -13,7 +14,6 @@ class userSeletionList:
     def __init__(self):
         self.head = None
 
-#Add method
     def add(self, user_name):
         if self.head is None:
             newPlayerNode = playerNode(user_name)
@@ -29,6 +29,34 @@ class userSeletionList:
             newPlayerNode.next = head
             newPlayerNode.prev = temp
             self.head.prev = newPlayerNode
+
+    # Generates double linked list
+    def generate_graphviz(self):
+        if self.head is None:
+            print('The list is Empty')
+        else:
+            f = open('UsersReport.dot', 'w')
+            f.write('Users Report {\n')
+            f.write('node [shape = record];\n')
+            f.write('rankdir=LR;\n')
+            temp = self.head
+            count = 0
+
+            while temp.next is not None and temp.next is not self.head:
+                # print(temp.playername,end='')
+                # print('->',end='')
+                f.write('node{} [label=\" {} \"];\n'.format(count, temp.playerName))
+                count += 1
+                f.write('node{} -> node{};\n'.format(count - 1, count))
+                temp = temp.next
+
+            # print(temp.id)
+            f.write('node{} [label=" {} \"];\n'.format(count, temp.playerName))
+            f.write('}')
+            f.close()
+            os.system('dot UsersReport.dot -Tpng -o LinkedList.png')
+            os.subprocess.check_call('open', 'UsersReport.png')
+
 
 #Node for score Structure
 class pointNode:
@@ -90,8 +118,71 @@ class scoreBoardLinkedList:
         head = None
         self.head = temp
 
+#Node for Snake
 
+class snake_Node:
+    def __init__(self, value, x, y):
+        self.value = value
+        self.y = y
+        self.x = x
+        self.head = None
+        self.prev = None
+        self.next = None
 
+#Double Linked list for the Snake
+class snake_Structure:
+    def __init__(self):
+        self.head = None
+
+    def addPoint(self, value, x, y):
+        newSnakeNode = snake_Node(value,x,y)
+        if self.head is None:
+            self.head = newSnakeNode
+            newSnakeNode.next = None
+            newSnakeNode.prev = None
+        else:
+            temp = self.head
+            while temp.next and temp.next is not None:
+                temp = temp.next
+            newSnakeNode.prev = temp
+            temp.next = newSnakeNode
+
+    def addPointAndChangeHead(self, value, x, y):
+        newSnakeNode = snake_Node(value, x, y)
+
+        temp = self.head
+
+        newSnakeNode.next = temp
+        newSnakeNode.prev = None
+
+        temp.prev = newSnakeNode
+
+        self.head = newSnakeNode
+
+    def removePoint(self):
+        temp = self.head
+        tempPrev = self.head
+
+        while temp.next and temp.next is not None:
+            temp = temp.next
+            tempPrev = temp.prev
+        temp = None
+        tempPrev.next = None
+
+    def passingThroughPoint(self, character, x, y):
+        snakePoint = snake_Node(character, x, y)
+
+        if character is '+':
+            self.addPoint(snakePoint)
+        elif character is '*':
+            self.removePoint()
+
+    def drawNodes(self, screen, x, y):
+        temp = self.head
+
+        while temp.next:
+            screen.addstr(temp.y, temp.x, '#')
+            temp = temp.next
 
 
 

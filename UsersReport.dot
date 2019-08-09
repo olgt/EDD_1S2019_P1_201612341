@@ -1,0 +1,17 @@
+Users Report {
+node [shape = record];
+rankdir=LR;
+node0 [label=" ['Paola'] "];
+node0 -> node1;
+node1 [label=" ['Alex'] "];
+node1 -> node2;
+node2 [label=" ['Katherine'] "];
+node2 -> node3;
+node3 [label=" ['Beatriz'] "];
+node3 -> node4;
+node4 [label=" ['Oscar'] "];
+node4 -> node5;
+node5 [label=" ['Willy'] "];
+node5 -> node6;
+node6 [label=" ['Majo'] "];
+}

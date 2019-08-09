@@ -1,24 +1,13 @@
 import structures
 import csv
 import curses
+from structures import playerNode
 
-def load_user_array():
-    users = []
-    with open('Usuarios.csv') as csv_file:
-        csv_reader = csv.reader(csv_file, delimiter=',')
-        line_count = 0
-        for row in csv_reader:
-            if line_count == 0:
-                line_count += 1
-            elif line_count is not 0:
-                users.append(row)
-                line_count +=  1
-    #Imprime el numero de rows analizadas
-    print(f'Processed {line_count} lines.')
-    return users
+playerSelected = playerNode("New Player")
 
-def create_Filled_User_Structure():
-    users = load_user_array()
+
+def create_Filled_User_Structure(loaded_user_array):
+    users = loaded_user_array
     structure_Of_Users = structures.userSeletionList()
 
     for user in users:
@@ -34,8 +23,8 @@ def print_Users(screen, user):
     screen.addstr(int(height//2 + 1), int(width/2 - 14), "<- Press Enter to select ->")
     screen.refresh()
 
-def cycleThroughUsers(screen):
-    structure_Of_Users = create_Filled_User_Structure()
+def cycleThroughUsers(screen, users):
+    structure_Of_Users = create_Filled_User_Structure(users)
     node = structure_Of_Users.head
     user = node.playerName
 
@@ -50,7 +39,8 @@ def cycleThroughUsers(screen):
             node = node.prev
             user = node.playerName
         elif key == curses.KEY_LEFT or key == 10:
-            break
+            playerSelected = node
+            return playerSelected
 
         print_Users(screen, str(user))
     screen.clear()
