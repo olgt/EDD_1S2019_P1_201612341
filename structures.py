@@ -52,6 +52,7 @@ class userSeletionList:
 
             # print(temp.id)
             f.write('node{} [label=" {} \"];\n'.format(count, str(temp.playerName)))
+            f.write('node{} -> node{};\n'.format(count, 0))
             f.write('}')
             f.close()
             os.system('dot UsersReport.dot -Tpng -o UsersReport.png')

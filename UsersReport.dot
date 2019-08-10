@@ -14,4 +14,5 @@ node4 -> node5;
 node5 [label=" ['Willy'] "];
 node5 -> node6;
 node6 [label=" ['Majo'] "];
+node6 -> node0;
 }
