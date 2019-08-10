@@ -48,11 +48,13 @@ class userSeletionList:
                 f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.playerName)))
                 count += 1
                 f.write('node{} -> node{};\n'.format(count - 1, count))
+                f.write('node{} -> node{};\n'.format(count, count - 1))
                 temp = temp.next
 
             # print(temp.id)
             f.write('node{} [label=" {} \"];\n'.format(count, str(temp.playerName)))
             f.write('node{} -> node{};\n'.format(count, 0))
+            f.write('node{} -> node{};\n'.format(0, count))
             f.write('}')
             f.close()
             os.system('dot UsersReport.dot -Tpng -o UsersReport.png')
