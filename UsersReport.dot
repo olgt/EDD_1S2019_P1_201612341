@@ -1,4 +1,4 @@
-Users Report {
+digraph firstGraph{
 node [shape = record];
 rankdir=LR;
 node0 [label=" ['Paola'] "];

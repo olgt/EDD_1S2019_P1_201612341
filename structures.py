@@ -1,6 +1,8 @@
 
 import os
 import curses
+import subprocess
+import pydot
 
 #Node for players Structure
 class playerNode:
@@ -36,26 +38,28 @@ class userSeletionList:
             print('The list is Empty')
         else:
             f = open('UsersReport.dot', 'w')
-            f.write('Users Report {\n')
+            f.write('digraph firstGraph{\n')
             f.write('node [shape = record];\n')
             f.write('rankdir=LR;\n')
             temp = self.head
             count = 0
 
             while temp.next is not None and temp.next is not self.head:
-                # print(temp.playername,end='')
-                # print('->',end='')
-                f.write('node{} [label=\" {} \"];\n'.format(count, temp.playerName))
+                f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.playerName)))
                 count += 1
                 f.write('node{} -> node{};\n'.format(count - 1, count))
                 temp = temp.next
 
             # print(temp.id)
-            f.write('node{} [label=" {} \"];\n'.format(count, temp.playerName))
+            f.write('node{} [label=" {} \"];\n'.format(count, str(temp.playerName)))
             f.write('}')
             f.close()
-            os.system('dot UsersReport.dot -Tpng -o LinkedList.png')
-            os.subprocess.check_call('open', 'UsersReport.png')
+            os.system('dot UsersReport.dot -Tpng -o UsersReport.png')
+            try:
+                os.startfile('UsersReport.png')
+                subprocess.check_call(['open', 'UsersReport.png'])
+            except:
+                print('Error')
 
 
 #Node for score Structure
