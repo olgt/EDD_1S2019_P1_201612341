@@ -4,7 +4,7 @@ from structures import snake_Node
 from structures import snake_Structure
 from curses import textpad
 
-snakeFinal = snake_Structure()
+snakeFinalReport = snake_Structure()
 
 def create_GameField(screen):
     screenHeight, screenWidth = screen.getmaxyx()
@@ -32,6 +32,7 @@ def create_Snake(screen, screenHeight, screenWidth):
     screen.nodelay(1)
     screen.timeout(150)
 #Creation of the snake with 3 units
+    snakeFinal = snake_Structure()
     for i in range(3):
         y = screenHeight // 2
         x = screenWidth // 2 - i
@@ -63,9 +64,12 @@ def create_Snake(screen, screenHeight, screenWidth):
 # Adds the newhead and prints it
 
         snakeFinal.addPointAndChangeHead(1, newHead[1], newHead[0])
-        snakeFinal.removePoint()
+        snakeFinal.removePointAndEraseFromScreen(screen)
+        screen.refresh()
         snakeFinal.drawNodes(screen, newHead[1], newHead[0])
 
+    snakeFinal.createSnakeReport()
+    snakeFinalReport = snakeFinal
 """
 #This checks if the snake went through a point
         if snake[0] == food:

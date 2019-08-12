@@ -64,7 +64,6 @@ class userSeletionList:
             except:
                 print('Error')
 
-
 #Node for score Structure
 class pointNode:
     def __init__(self, x,y, value):
@@ -154,6 +153,7 @@ class snake_Structure:
             newSnakeNode.prev = temp
             temp.next = newSnakeNode
 
+
     def addPointAndChangeHead(self, value, x, y):
         newSnakeNode = snake_Node(value, x, y)
 
@@ -166,15 +166,14 @@ class snake_Structure:
 
         self.head = newSnakeNode
 
-    def removePoint(self):
+    def removePointAndEraseFromScreen(self, screen):
         temp = self.head
-        tempPrev = self.head
 
-        while temp.next and temp.next is not None:
+        while temp.next:
             temp = temp.next
-            tempPrev = temp.prev
+        screen.addstr(temp.y, temp.x, ' ')
+        temp.prev.next = None
         temp = None
-        tempPrev.next = None
 
     def passingThroughPoint(self, character, x, y):
         snakePoint = snake_Node(character, x, y)
@@ -186,11 +185,38 @@ class snake_Structure:
 
     def drawNodes(self, screen, x, y):
         temp = self.head
-
         while temp.next:
             screen.addstr(temp.y, temp.x, '#')
             temp = temp.next
 
+    def createSnakeReport(self):
+        if self.head is None:
+            print('The list is Empty')
+        else:
+            f = open('SnakeReport.dot', 'w')
+            f.write('digraph firstGraph{\n')
+            f.write('node [shape = record];\n')
+            f.write('rankdir=LR;\n')
+            temp = self.head
+            count = 0
+
+            while temp.next is not None:
+                f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y) + ' Head = ' + str(self.head.x)))
+                count += 1
+                f.write('node{} -> node{};\n'.format(count - 1, count))
+                f.write('node{} -> node{};\n'.format(count, count - 1))
+                temp = temp.next
+
+            # print(temp.id)
+            f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
+            f.write('}')
+            f.close()
+            os.system('dot SnakeReport.dot -Tpng -o SnakeReport.png')
+            try:
+                os.startfile('SnakeReport.png')
+                subprocess.check_call(['open', 'SnakeReport.png'])
+            except:
+                print('Error')
 
 
 
