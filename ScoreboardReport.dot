@@ -1,0 +1,9 @@
+digraph firstGraph{
+node [shape = record];
+rankdir=LR;
+node0 [label=" ['Alex'], 5 "];
+node0 -> node1;
+node1 [label=" ['Katherine'], 5 "];
+node1 -> node2;
+node2 [label="   "];
+}

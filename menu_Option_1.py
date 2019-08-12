@@ -91,7 +91,7 @@ def create_Snake(screen, screenHeight, screenWidth):
 #Creates a point and prints it
             food = create_food(snakeFinal, box)
 
-            if random.random() > 0.75:
+            if random.random() > 0.80:
                 screen.addstr(food[0], food[1], '*')
                 bad = True
             else:

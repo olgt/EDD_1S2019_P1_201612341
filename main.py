@@ -1,6 +1,6 @@
 
 import curses
-import  menu_Option_1
+import menu_Option_1
 import menu_Option_3
 import menu_Option_5
 from menu_Option_1 import create_Snake
@@ -9,11 +9,15 @@ from menu_Option_3 import create_Filled_User_Structure
 from menu_Option_5 import print_Instructions
 from menu_Option_5 import load_user_array
 from menu_Option_4 import generatePlayerReport
-from structures import playerNode
+from structures import playerNode, scoreBoardLinkedList, scoreBoardNode
 
 #Global Variables
+global actualScore
+global actualUser
 actualUser = playerNode("New Player")
 actualScore = 0
+
+
 users = []
 
 def printMenu(screen, selectedOptionIndex):
@@ -36,7 +40,7 @@ def printMenu(screen, selectedOptionIndex):
         else:
             screen.addstr(y, x, menuOptions[index])
 
-def printReportsSubMenu(screen, selectedOption, optionFive, users, snakeForReport, yumsStructure):
+def printReportsSubMenu(screen, selectedOption, optionFive, users, snakeForReport, yumsStructure, scoreBoardStructure):
 #Settings/Prints menu
     screen.clear()
     menuOptions = ["Reports Menu", "1. Snake Report", "2.Score Report", "3. Scoreboard Report", "4. Users Report",
@@ -78,6 +82,7 @@ def printReportsSubMenu(screen, selectedOption, optionFive, users, snakeForRepor
 
 #Option 3 ScoreBoard Report
         elif key == curses.KEY_ENTER or key == 10 and selectedOption == 3:
+            scoreBoardStructure.createPointsReport()
             pass
 #Option 4 Users Report
         elif key == curses.KEY_ENTER or key == 10 and selectedOption is 4:
@@ -91,7 +96,7 @@ def printReportsSubMenu(screen, selectedOption, optionFive, users, snakeForRepor
         elif key == curses.KEY_ENTER or key == 10 and selectedOption == 5:
             break
 
-        printReportsSubMenu(screen,selectedOption, optionFive, users, snakeForReport, yumsStructure)
+        printReportsSubMenu(screen,selectedOption, optionFive, users, snakeForReport, yumsStructure, scoreBoardStructure)
         screen.addstr(5,5, str(selectedOption))
         break
 
@@ -100,9 +105,10 @@ def getNewName(screen):
     curses.curs_set(True)
     screen.addstr(5, 5, "No Users Loaded. Please write the name of the player: ")
     nameOfPlayer = screen.getstr()
-    actualUser = nameOfPlayer
+    actualUser = playerNode(nameOfPlayer)
     curses.curs_set(False)
     screen.clear()
+    return actualUser
 
 def main(screen):
     curses.curs_set(0) #Sets the blinking off
@@ -110,6 +116,11 @@ def main(screen):
     isOptionFivePressed = False
     height, width = screen.getmaxyx()
     printMenu(screen, selectedOptionIndex)
+
+#This is used to count less than 10 games
+    gamesForScoreBoardCounter = 0
+    scoreBoard = scoreBoardLinkedList()
+    actualUser = playerNode("New Player")
 
     while 1:
         key = screen.getch()
@@ -128,8 +139,17 @@ def main(screen):
                 snakeForReport, actualScore, yumsStructure = create_Snake(screen, height,width)
 
             elif(isOptionFivePressed is False):
-                getNewName(screen)
+                actualUser = getNewName(screen)
                 create_Snake(screen, height, width)
+
+    #Here we add the players to the ScoreBoard Structure and if it goes over 10, eliminate the head (FIFO)
+            playerWithScoreNode = scoreBoardNode(str(actualUser.playerName), actualScore)
+            scoreBoard.enqueue(playerWithScoreNode)
+            gamesForScoreBoardCounter += 1
+            if gamesForScoreBoardCounter is 10:
+                scoreBoard.dequeue()
+                gamesForScoreBoardCounter -= 1
+
 #Option 3 Choose User
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 3:
             if(isOptionFivePressed is False):
@@ -139,7 +159,7 @@ def main(screen):
                 print("User Selected = " + str(actualUser.playerName))
 #Option 4 Reports
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 4:
-            printReportsSubMenu(screen, 0, isOptionFivePressed, users, snakeForReport, yumsStructure)
+            printReportsSubMenu(screen, 0, isOptionFivePressed, users, snakeForReport, yumsStructure, scoreBoard)
             screen.clear()
 #Option 5 Load Users
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 5:

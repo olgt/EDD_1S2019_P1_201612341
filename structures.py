@@ -90,7 +90,7 @@ class scoreList:
 
     def pop(self): #Method to pop last entry
         temp = self.head
-
+        tempBehind = self.head
         while temp.next is not None:
             tempBehind = temp
             temp = temp.next
@@ -130,14 +130,16 @@ class scoreList:
 
 #Node for scoreboard players/score
 class scoreBoardNode:
-    def __init__(self, playerNode, score):
-        self.playerNode = playerNode
+    def __init__(self, playerName, score):
+        self.playerName = playerName
         self.score = score
         self.next = None
-        self.head = None
 
 #Queue Linked list (uses scoreBoardNode)
 class scoreBoardLinkedList:
+    def __init__(self):
+        self.head = None
+
     def enqueue(self, newNode):
         if self.head is None:
             self.head = newNode
@@ -152,12 +154,40 @@ class scoreBoardLinkedList:
     def dequeue(self): #removes the first entry
         head = self.head
         temp = head.next
-
         head = None
         self.head = temp
 
-#Node for Snake
+    def createPointsReport(self):
+        if self.head is None:
+            print('The list is Empty')
+        else:
+            f = open('ScoreboardReport.dot', 'w')
+            f.write('digraph firstGraph{\n')
+            f.write('node [shape = record];\n')
+            f.write('rankdir=LR;\n')
+            temp = self.head
+            count = 0
 
+            while temp.next is not None:
+                f.write('node{} [label=\" {} \"];\n'.format(count, temp.playerName + ', ' + str(temp.score)))
+                count += 1
+                f.write('node{} -> node{};\n'.format(count - 1, count))
+                temp = temp.next
+
+            # print(temp.id)
+            f.write('node{} [label=\" {} \"];\n'.format(count,  temp.playerName + ', ' + str(temp.score)))
+            count += 1
+            f.write('node{} -> node{};\n'.format(count - 1, count))
+            f.write('node{} [label=\" {} \"];\n'.format(count, " "))
+            f.write('}')
+            f.close()
+            os.system('dot ScoreboardReport.dot -Tpng -o ScoreboardReport.png')
+            try:
+                os.startfile('ScoreboardReport.png')
+            except:
+                print('Error')
+
+#Node for Snake
 class snake_Node:
     def __init__(self, value, x, y):
         self.value = value
