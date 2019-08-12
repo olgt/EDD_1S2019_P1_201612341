@@ -189,6 +189,19 @@ class snake_Structure:
             screen.addstr(temp.y, temp.x, '#')
             temp = temp.next
 
+    def toArray(self):
+
+        snakeArray = []
+        temp = self.head
+
+
+        while temp.next is not None:
+            coordenatesNode = [temp.x, temp.y]
+            snakeArray.append(coordenatesNode)
+            temp = temp.next
+
+        return snakeArray
+
     def createSnakeReport(self):
         if self.head is None:
             print('The list is Empty')
