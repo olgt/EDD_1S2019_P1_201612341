@@ -38,7 +38,7 @@ def cycleThroughUsers(screen, users):
         elif key == curses.KEY_LEFT:
             node = node.prev
             user = node.playerName
-        elif key == curses.KEY_LEFT or key == 10:
+        elif key == curses.KEY_ENTER or key == 10:
             playerSelected = node
             return playerSelected
 

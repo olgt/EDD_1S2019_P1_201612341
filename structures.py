@@ -60,7 +60,6 @@ class userSeletionList:
             os.system('dot UsersReport.dot -Tpng -o UsersReport.png')
             try:
                 os.startfile('UsersReport.png')
-                subprocess.check_call(['open', 'UsersReport.png'])
             except:
                 print('Error')
 
@@ -75,6 +74,9 @@ class pointNode:
 
 #Stack linked list (Uses pointNode Structure)
 class scoreList:
+    def __init__(self):
+        self.head = None
+
     def push(self, newNode): #Method to push a new node to stack
         if self.head is None:
             self.head = newNode
@@ -95,6 +97,36 @@ class scoreList:
 
         temp = None
         tempBehind.next = None
+
+    def createPointsReport(self):
+        if self.head is None:
+            print('The list is Empty')
+        else:
+            f = open('PointsReport.dot', 'w')
+            f.write('digraph firstGraph{\n')
+            f.write('node [shape = record];\n')
+            f.write('rankdir=LR;\n')
+            temp = self.head
+            count = 0
+
+            while temp.next is not None:
+                f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
+                count += 1
+                f.write('node{} -> node{};\n'.format(count - 1, count))
+                temp = temp.next
+
+            # print(temp.id)
+            f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
+            count += 1
+            f.write('node{} -> node{};\n'.format(count - 1, count))
+            f.write('node{} [label=\" {} \"];\n'.format(count, " "))
+            f.write('}')
+            f.close()
+            os.system('dot PointsReport.dot -Tpng -o PointsReport.png')
+            try:
+                os.startfile('PointsReport.png')
+            except:
+                print('Error')
 
 #Node for scoreboard players/score
 class scoreBoardNode:
@@ -227,10 +259,5 @@ class snake_Structure:
             os.system('dot SnakeReport.dot -Tpng -o SnakeReport.png')
             try:
                 os.startfile('SnakeReport.png')
-                subprocess.check_call(['open', 'SnakeReport.png'])
             except:
                 print('Error')
-
-
-
-

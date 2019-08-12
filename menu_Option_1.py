@@ -1,10 +1,11 @@
 import curses
 import random
-from structures import snake_Node
+from structures import snake_Node, pointNode
 from structures import snake_Structure
 from curses import textpad
+from structures import scoreList
 
-snakeFinalReport = snake_Structure()
+yumsFinalReport = scoreList()
 score = 0
 
 def create_GameField(screen):
@@ -35,8 +36,10 @@ def create_Snake(screen, screenHeight, screenWidth):
     screen.nodelay(1)
     screen.timeout(150)
     screen.addstr(3,0,'Score = ' + str(actuaScore))
-#Creation of the snake with 3 units
+#Creation of the snake with 3 units along with structure for bites
+    yumsFinalReport = scoreList()
     snakeFinal = snake_Structure()
+
     for i in range(3):
         y = screenHeight // 2
         x = screenWidth // 2 - i
@@ -77,8 +80,11 @@ def create_Snake(screen, screenHeight, screenWidth):
                 actuaScore -= 1
                 snakeFinal.removePointAndEraseFromScreen(screen)
                 snakeFinal.removePointAndEraseFromScreen(screen)
+                yumsFinalReport.pop()
             elif bad is False:
                 actuaScore += 1
+                point = pointNode(food[1], food[0], '+')
+                yumsFinalReport.push(point)
 
             screen.addstr(3, 0, 'Score = ' + str(actuaScore))
 
@@ -103,7 +109,9 @@ def create_Snake(screen, screenHeight, screenWidth):
             break
 
     snakeFinal.createSnakeReport()
-    snakeFinalReport = snakeFinal
+    screen.nodelay(0)
+    screen.getch()
+    return snakeFinal, actuaScore, yumsFinalReport
 
 """        
 #This checks if the snake goes against any walls or againts itself
@@ -111,8 +119,6 @@ def create_Snake(screen, screenHeight, screenWidth):
                 snake[0][1] in [box[0][1], box[1][1]] or
                 snake[0] in snake[1:]):
             message = "Game Over"
-            screen.addstr(screenHeight // 2, screenWidth // 2, message)
-            screen.nodelay(0)
-            screen.getch()
+
             break
 """
