@@ -6,7 +6,7 @@ def print_Instructions(screen):
     screen.clear()
     height, width = screen.getmaxyx()
 
-    instructions = """               1. Create a csv file 
+    instructions = """ 1. Create a csv file 
                     2. Save the file under the directory of this folder
                     3. Go to the game menu and press the option 5
                     4. Done.

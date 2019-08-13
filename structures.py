@@ -2,7 +2,6 @@
 import os
 import curses
 import subprocess
-import pydot
 
 #Node for players Structure
 class playerNode:
@@ -264,6 +263,23 @@ class snake_Structure:
 
         return snakeArray
 
+    def checkIfSnakeCrashes(self, box):
+        state = False
+        temp = self.head.next
+
+        while temp.next and temp.next is not None:
+            if self.head.x is temp.x and self.head.y is temp.y:
+                state = True
+                return state
+            temp = temp.next
+
+        temp = self.head
+        if self.head.y in [box[0][0], box[1][0]] or self.head.x in [box[0][1], box[1][1]]:
+            state = True
+            return state
+
+        return state
+
     def createSnakeReport(self):
         if self.head is None:
             print('The list is Empty')
@@ -291,3 +307,4 @@ class snake_Structure:
                 os.startfile('SnakeReport.png')
             except:
                 print('Error')
+

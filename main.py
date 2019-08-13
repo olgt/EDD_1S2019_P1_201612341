@@ -4,11 +4,12 @@ import menu_Option_1
 import menu_Option_3
 import menu_Option_5
 from menu_Option_1 import create_Snake
+from menu_Option_2 import scoreboardVisualization
 from menu_Option_3 import cycleThroughUsers
 from menu_Option_3 import create_Filled_User_Structure
+from menu_Option_4 import generatePlayerReport
 from menu_Option_5 import print_Instructions
 from menu_Option_5 import load_user_array
-from menu_Option_4 import generatePlayerReport
 from structures import playerNode, scoreBoardLinkedList, scoreBoardNode
 
 #Global Variables
@@ -16,7 +17,6 @@ global actualScore
 global actualUser
 actualUser = playerNode("New Player")
 actualScore = 0
-
 
 users = []
 
@@ -149,6 +149,12 @@ def main(screen):
             if gamesForScoreBoardCounter is 10:
                 scoreBoard.dequeue()
                 gamesForScoreBoardCounter -= 1
+
+#Option 2 ScoreBoard Visualization
+
+        elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 2:
+                scoreboardVisualization(screen, scoreBoard)
+                screen.clear
 
 #Option 3 Choose User
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 3:

@@ -32,6 +32,7 @@ def create_food(snakeFinal, box):
 def create_Snake(screen, screenHeight, screenWidth):
 #Time/Box Settings
     actuaScore = 0
+    isSnakeCrashed = False
     box = create_GameField(screen)
     screen.nodelay(1)
     screen.timeout(150)
@@ -104,8 +105,10 @@ def create_Snake(screen, screenHeight, screenWidth):
 
         snakeFinal.drawNodes(screen, newHead[1], newHead[0])
         screen.refresh()
+
+        isSnakeCrashed = snakeFinal.checkIfSnakeCrashes(box)
 #hecks if game has been won
-        if actuaScore == 5:
+        if actuaScore == 5 or isSnakeCrashed is True:
             break
 
     snakeFinal.createSnakeReport()
@@ -113,8 +116,11 @@ def create_Snake(screen, screenHeight, screenWidth):
     screen.getch()
     return snakeFinal, actuaScore, yumsFinalReport
 
-"""        
+""""
 #This checks if the snake goes against any walls or againts itself
+        
+        
+        
         if(snake[0][0] in [box[0][0], box[1][0]] or
                 snake[0][1] in [box[0][1], box[1][1]] or
                 snake[0] in snake[1:]):
