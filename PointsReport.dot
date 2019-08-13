@@ -1,7 +1,5 @@
 digraph firstGraph{
+rankdir=BT;
 node [shape = record];
-rankdir=LR;
-node0 [label=" 25,4 "];
-node0 -> node1;
-node1 [label="   "];
+hashTable [label="<f0>85,5|<f2>20,7|<f1>  "];
 }

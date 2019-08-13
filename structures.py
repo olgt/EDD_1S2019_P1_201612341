@@ -103,22 +103,20 @@ class scoreList:
         else:
             f = open('PointsReport.dot', 'w')
             f.write('digraph firstGraph{\n')
+            f.write('rankdir=BT;\n')
             f.write('node [shape = record];\n')
-            f.write('rankdir=LR;\n')
+            #f.write('rankdir=LR;\n')
             temp = self.head
             count = 0
-
+            f.write('hashTable [label=\"'.format(count, str(temp.x) + ',' + str(temp.y)))
             while temp.next is not None:
-                f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
+                f.write('<f{}>{}|'.format(count, str(temp.x) + ',' + str(temp.y)))
                 count += 1
-                f.write('node{} -> node{};\n'.format(count - 1, count))
                 temp = temp.next
-
+#hashTable [label="<f0>0|<f1>1|<f2>2|<f3>3|<f4>4|<f5>5|<f6>6|<f7>7|<f8>8"];
             # print(temp.id)
-            f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
-            count += 1
-            f.write('node{} -> node{};\n'.format(count - 1, count))
-            f.write('node{} [label=\" {} \"];\n'.format(count, " "))
+            f.write('<f{}>{}|'.format(count + 1, str(temp.x) + ',' + str(temp.y)))
+            f.write('<f{}> {}\"];\n'.format(count, " "))
             f.write('}')
             f.close()
             os.system('dot PointsReport.dot -Tpng -o PointsReport.png')
@@ -289,17 +287,23 @@ class snake_Structure:
             f.write('node [shape = record];\n')
             f.write('rankdir=LR;\n')
             temp = self.head
-            count = 0
+            count = 1
+
+            f.write('node{} [label=\" {} \"];\n'.format(count - 1, "NULL"))
+            f.write('node{} -> node{};\n'.format(count, count - 1))
 
             while temp.next is not None:
-                f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y) + ' Head = ' + str(self.head.x)))
+                f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
                 count += 1
                 f.write('node{} -> node{};\n'.format(count - 1, count))
                 f.write('node{} -> node{};\n'.format(count, count - 1))
                 temp = temp.next
 
             # print(temp.id)
+
             f.write('node{} [label=\" {} \"];\n'.format(count, str(temp.x) + ',' + str(temp.y)))
+            f.write('node{} -> node{};\n'.format(count, count + 1))
+            f.write('node{} [label=\" {} \"];\n'.format(count + 1, "NULL"))
             f.write('}')
             f.close()
             os.system('dot SnakeReport.dot -Tpng -o SnakeReport.png')

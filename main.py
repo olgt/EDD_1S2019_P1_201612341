@@ -15,9 +15,10 @@ from structures import playerNode, scoreBoardLinkedList, scoreBoardNode
 #Global Variables
 global actualScore
 global actualUser
+global users
+global scoreboard
 actualUser = playerNode("New Player")
 actualScore = 0
-
 users = []
 
 def printMenu(screen, selectedOptionIndex):
@@ -110,6 +111,14 @@ def getNewName(screen):
     screen.clear()
     return actualUser
 
+def errorMessage(screen):
+
+    screen.addstr(5, 5, "We are missing a paramater. Go back and keep on exploring all the options")
+    while 1:
+        key = screen.getch()
+        if key is curses.KEY_ENTER or key == 10:
+            break
+
 def main(screen):
     curses.curs_set(0) #Sets the blinking off
     selectedOptionIndex = 1 #This is the first option that the selection is at
@@ -121,6 +130,7 @@ def main(screen):
     gamesForScoreBoardCounter = 0
     scoreBoard = scoreBoardLinkedList()
     actualUser = playerNode("New Player")
+    users = []
 
     while 1:
         key = screen.getch()
@@ -133,14 +143,14 @@ def main(screen):
         elif selectedOptionIndex == 0 or selectedOptionIndex > 6:
             selectedOptionIndex = 1
             printMenu(screen, selectedOptionIndex)
-#Option 1
+#Option 1 Play
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 1:
             if(isOptionFivePressed):
-                snakeForReport, actualScore, yumsStructure = create_Snake(screen, height,width)
+                snakeForReport, actualScore, yumsStructure = create_Snake(screen, height,width, actualUser)
 
             elif(isOptionFivePressed is False):
                 actualUser = getNewName(screen)
-                create_Snake(screen, height, width)
+                snakeForReport, actualScore, yumsStructure = create_Snake(screen, height, width, actualUser)
 
     #Here we add the players to the ScoreBoard Structure and if it goes over 10, eliminate the head (FIFO)
             playerWithScoreNode = scoreBoardNode(str(actualUser.playerName), actualScore)
@@ -165,8 +175,12 @@ def main(screen):
                 print("User Selected = " + str(actualUser.playerName))
 #Option 4 Reports
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 4:
-            printReportsSubMenu(screen, 0, isOptionFivePressed, users, snakeForReport, yumsStructure, scoreBoard)
-            screen.clear()
+            try:
+                printReportsSubMenu(screen, 0, isOptionFivePressed, users, snakeForReport, yumsStructure, scoreBoard)
+                screen.clear()
+            except:
+                errorMessage(screen)
+
 #Option 5 Load Users
         elif key == curses.KEY_ENTER or key == 10 and selectedOptionIndex == 5:
             print_Instructions(screen)

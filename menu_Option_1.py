@@ -29,7 +29,7 @@ def create_food(snakeFinal, box):
 
     return food
 
-def create_Snake(screen, screenHeight, screenWidth):
+def create_Snake(screen, screenHeight, screenWidth, actualUser):
 #Time/Box Settings
     actuaScore = 0
     isSnakeCrashed = False
@@ -37,6 +37,8 @@ def create_Snake(screen, screenHeight, screenWidth):
     screen.nodelay(1)
     screen.timeout(150)
     screen.addstr(3,0,'Score = ' + str(actuaScore))
+    screen.addstr(3, 10, 'User = ' + str(actualUser.playerName))
+
 #Creation of the snake with 3 units along with structure for bites
     yumsFinalReport = scoreList()
     snakeFinal = snake_Structure()
@@ -115,16 +117,3 @@ def create_Snake(screen, screenHeight, screenWidth):
     screen.nodelay(0)
     screen.getch()
     return snakeFinal, actuaScore, yumsFinalReport
-
-""""
-#This checks if the snake goes against any walls or againts itself
-        
-        
-        
-        if(snake[0][0] in [box[0][0], box[1][0]] or
-                snake[0][1] in [box[0][1], box[1][1]] or
-                snake[0] in snake[1:]):
-            message = "Game Over"
-
-            break
-"""

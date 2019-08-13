@@ -15,8 +15,8 @@ def print_Instructions(screen):
     screen.addstr(2, 3, instructions)
     screen.refresh()
 
-    key = screen.getch()
     while 1:
+        key = screen.getch()
         if(key == curses.KEY_ENTER or key == 10):
             break
 

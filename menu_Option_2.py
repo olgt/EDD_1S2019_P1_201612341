@@ -10,15 +10,14 @@ def scoreboardVisualization(screen, scoreboard):
 
     temp = scoreboard.head
     i = 2
-    screen.addstr(height - 1, width // 2, "SCOREBOARD")
-    screen.addstr(height - i, width // 2, str(temp.playerName) + '  ' + str(temp.score) + ' Points')
+    screen.addstr(1, width // 2, "SCOREBOARD")
+    #screen.addstr(1 + i, width // 2, str(temp.playerName) + '  ' + str(temp.score) + ' Points')
 
-    """while temp.next and temp.next is not None and i < 10:
-        screen.addstr(height - i, width // 2, str(temp.playerName) + '       ' + str(temp.score) +' Points')
+    while temp is not None and i < 10:
+        screen.addstr(1 + i, width // 2, str(temp.playerName) + '  ' + str(temp.score) + ' Points')
         temp = temp.next
         i += 1
-        screen.refresh()"""
-
+        screen.refresh()
 
     while 1:
         key = screen.getch()
