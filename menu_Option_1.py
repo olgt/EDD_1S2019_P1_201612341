@@ -29,6 +29,20 @@ def create_food(snakeFinal, box):
 
     return food
 
+
+def showGameOverScreen(screen):
+    screen.clear()
+    height, width = screen.getmaxyx()
+    screen.addstr(int(height // 2), int(width / 2 - 4), "Game Over")
+    screen.addstr(int(height // 2) + 1, int(width / 2 - 4), "Enter = Exit")
+    screen.refresh()
+    while 1:
+        key = screen.getch()
+        if(key == curses.KEY_ENTER or key == 10):
+            break
+
+
+
 def create_Snake(screen, screenHeight, screenWidth, actualUser):
 #Time/Box Settings
     actuaScore = 0
@@ -110,7 +124,10 @@ def create_Snake(screen, screenHeight, screenWidth, actualUser):
 
         isSnakeCrashed = snakeFinal.checkIfSnakeCrashes(box)
 #hecks if game has been won
-        if actuaScore == 5 or isSnakeCrashed is True:
+        if actuaScore == 15 or isSnakeCrashed is True:
+            screen.timeout(0)
+            showGameOverScreen(screen)
+            screen.clear()
             break
 
     snakeFinal.createSnakeReport()
