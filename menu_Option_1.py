@@ -7,6 +7,7 @@ from structures import scoreList
 
 yumsFinalReport = scoreList()
 score = 0
+global isNextLevel
 
 def create_GameField(screen):
     screenHeight, screenWidth = screen.getmaxyx()
@@ -41,10 +42,20 @@ def showGameOverScreen(screen):
         if(key == curses.KEY_ENTER or key == 10):
             break
 
+def showNextLevelMessage(screen):
+    height, width = screen.getmaxyx()
+    screen.addstr(int(height // 2), int(width / 2 - 4), "Next Level Incoming / Doubled Speed")
+    screen.addstr(int(height // 2) + 1, int(width / 2 - 4), "Enter = Continue")
+    screen.refresh()
+    while 1:
+        key = screen.getch()
+        if (key == curses.KEY_ENTER or key == 10):
+            break
 
 
 def create_Snake(screen, screenHeight, screenWidth, actualUser):
 #Time/Box Settings
+    isNextLevel = 0
     actuaScore = 0
     isSnakeCrashed = False
     box = create_GameField(screen)
@@ -124,7 +135,13 @@ def create_Snake(screen, screenHeight, screenWidth, actualUser):
 
         isSnakeCrashed = snakeFinal.checkIfSnakeCrashes(box)
 #hecks if game has been won
-        if actuaScore == 15 or isSnakeCrashed is True:
+        if actuaScore == 15 and isNextLevel == 0:
+            showNextLevelMessage(screen)
+            screen.timeout(35)
+            screen.nodelay(1)
+            isNextLevel += 1
+
+        if actuaScore == 20 or isSnakeCrashed is True:
             screen.timeout(0)
             showGameOverScreen(screen)
             screen.clear()

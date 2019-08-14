@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="daa4e7a6-e0a9-4545-a60a-06fcfd967d5d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/index-1.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/graphviz-2.38.msi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScoreboardReport.dot" beforeDir="false" afterPath="$PROJECT_DIR$/ScoreboardReport.dot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ScoreboardReport.png" beforeDir="false" afterPath="$PROJECT_DIR$/ScoreboardReport.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnakeReport.dot" beforeDir="false" afterPath="$PROJECT_DIR$/SnakeReport.dot" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SnakeReport.png" beforeDir="false" afterPath="$PROJECT_DIR$/SnakeReport.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/menu_Option_1.py" beforeDir="false" afterPath="$PROJECT_DIR$/menu_Option_1.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

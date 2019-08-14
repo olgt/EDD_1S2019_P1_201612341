@@ -42,5 +42,7 @@ These are dinamic structures, meaning that they keeep
 on changing. In this case we delete/add nodes for every 
 bite that the snake goes through. 
 
-You need to get 15 points to end the gme or carsh onto yourself
-as the snake. 
+You need to get 20 points to end the gme or crash onto yourself
+as the snake.
+
+When you get to 15 points the speed of the snake doubles. Meaning this is the next lvl.
